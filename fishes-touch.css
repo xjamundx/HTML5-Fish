@@ -1,6 +1,7 @@
 
 		body {
 			background: black;
+			-webkit-user-select: ignore;
 		}
 		
 		#canvas {
@@ -10,8 +11,14 @@
 			top: 0px;
 			position: absolute;
 			background: white;
+			-webkit-user-select: ignore;
 		}
 		
+		label {
+			background: white;
+			color: #000 !important;
+			-webkit-user-select: none
+		}
 		#restart {
 			border: 0px;
 			background: #333;
@@ -44,5 +51,25 @@
 			top: 25px;
 			background: transparent;
 		}
-
+		
+		canvas {
+			/* border: 2px solid pink; */
+			position: absolute;
+			-webkit-transition: -webkit-transform .2s ease-in;
+			-webkit-user-select: ignore;
+		}
+		
+		#stage {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: blue;
+			-webkit-user-select: ignore;
+			width: 480px;
+			height: 265px;
+		}
+		
+		img {
+			-webkit-user-select: ignore;
+		}
 		
