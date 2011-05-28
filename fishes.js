@@ -51,8 +51,8 @@ function init() {
 	start_x=width;
 	
 	// reset the canvas width
-	$("#canvas").attr("height", height);
-	$("#canvas").attr("width", width);
+	// $("#canvas").attr("height", height);
+	// $("#canvas").attr("width", width);
 
 	// create a sea
 	thesea = new sea(0,100,width,height,"blue",true);
@@ -182,7 +182,7 @@ smasher.detectCollision = function(collissionBoundary1, collissionBoundary2) {
 	}
 }
 	
-var sea = function (x,y,width,height,color,waves) {
+var sea = function (x, y, width, height, color, waves) {
 	this.x = x;
 	this.y = y;
 	this.width = width;
@@ -215,11 +215,10 @@ sea.prototype.draw = function () {
 			ctx.moveTo(i, this.y+10);
 			ctx.bezierCurveTo(i, this.y+50, 100+i, this.y+50, i-50, this.y+50);
 			ctx.fill();
-			// ctx.stroke();
 		}
 	}
 	ctx.fillStyle=this.color;
-	ctx.fillRect(this.x,this.sea_y,this.width,this.height);
+	ctx.fillRect(this.x, this.sea_y - 20, this.width, this.height);
 };
 	
 var collissionBoundary = function(x,y,width,height) {		

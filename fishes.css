@@ -1,0 +1,33 @@
+body {
+	background: white;
+	text-align: center;
+	margin:0;
+	padding:0;
+	background: white;
+	color: black;
+	-webkit-user-select: none;
+}
+
+#canvas {
+	margin:0;
+	padding:0;
+	background: white;
+	-webkit-user-select: none;
+}
+
+#restart {
+	clear: both;
+	margin: 0 auto;
+	margin-top: 10px;
+	display: block;
+}
+
+#score {
+	color: navy;
+}
+
+#controls {
+	position: absolute;
+	top: 25px;
+	left: 66%;
+}
