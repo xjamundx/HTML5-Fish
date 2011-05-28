@@ -1,32 +1,45 @@
-<!-- Licensed by Jamund Ferguson under ???? -->
 <html>
 <head>
 	<style type="text/css">
 		body {
-			background: blue;
+			background: white;
 			text-align: center;
 			margin:0;
 			padding:0;
+			background: tan;
+			color: black;
+			-webkit-user-select: none;
 		}
 		#canvas {
 			margin:0;
 			padding:0;
 			background: white;
-			width: 100%;
-			height: 100%;
+			-webkit-user-select: none;
 		}
 		#restart {
+			clear: both;
+			margin: 0 auto;
+			margin-top: 10px;
+			display: block;
+		}
+		#score {
+			color: navy;
 			position: absolute;
 			right: 100px;
-			top: 100px;
+			top: 27px;
 		}
 	</style>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="fishes.js"></script>
 	
 </head>
 <body>
+ <label id="score">Death Toll: 0</label>
  <canvas id="canvas" width="500" height="500"></canvas>
  <input id="restart" value="Restart" type="button"/>
+ <input title="up" class="joystick" value="^" type="button"/>
+ <input title="down" class="joystick" title="down" value="V" type="button"/>
+ <input title="left" class="joystick" value="&lt;" type="button"/>
+ <input title="right" class="joystick"  value="&gt;" type="button"/>
 </body>
 </html>
