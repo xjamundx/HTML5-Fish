@@ -1,0 +1,33 @@
+<html>
+<head>
+	
+	<!--
+		BY JAMUND FERGUSON
+		May 20, 2010
+		MIT and GPL Licensed (?)
+	-->
+	
+	<!-- StyleSheet -->
+	<link rel="stylesheet" type="text/css" href="fishes-touch.css" />	
+
+	<!-- iPhone Stuff -->
+	<link rel="apple-touch-icon" href="icon.png" />
+	<link rel="apple-touch-startup-image" href="Default.png" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=device-width, user-scalable=yes" />
+	
+	<!-- Javascript -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="fishes-touch.js"></script>
+	
+</head>
+<body>
+
+ <label id="score">Death Toll: 0</label>
+ <label id="fps">FPS: 0</label>
+ <canvas id="canvas" width="480" height="300" onclick="void(0)"></canvas>
+ <button id="restart">Restart</button>
+
+</body>
+</html>

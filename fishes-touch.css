@@ -1,0 +1,48 @@
+
+		body {
+			background: black;
+		}
+		
+		#canvas {
+			margin:0;
+			padding:0;
+			left: 0;
+			top: 0px;
+			position: absolute;
+			background: white;
+		}
+		
+		#restart {
+			border: 0px;
+			background: #333;
+			color: white;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			float: none;
+			width: 65px;
+			display: inline;
+			position: relative;
+			margin: 0;
+			margin-left: 15px;
+			height: 25px;
+		}
+		
+		#score {
+			z-index: 100;
+			color: navy;
+			position: absolute;
+			left: 360px;
+			top: 5px;
+			background: transparent;
+		}
+				
+		#fps {
+			z-index: 100;
+			color: navy;
+			position: absolute;
+			left: 360px;
+			top: 25px;
+			background: transparent;
+		}
+
+		
