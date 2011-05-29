@@ -198,5 +198,8 @@ $(function() {
 		moveFish($(this).attr("title"));
 	});
 		
+	$("#menu a").click(function() {
+		$("#menu").addClass("hidden");
+	})
 });
 

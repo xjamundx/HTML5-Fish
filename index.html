@@ -1,16 +1,19 @@
 <html>
 <head>
 	<link href="fishes.css" rel="stylesheet" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script src="classes/Fish.js"></script>
-	<script src="classes/CollisionBoundary.js"></script>
-	<script src="classes/Sea.js"></script>
-	<script src="classes/Shark.js"></script>
-	<script src="classes/Smasher.js"></script>
-	<script src="fishes.js"></script>
 </head>
 <body>
 	<canvas id="game" width="800" height="600"></canvas>
+	<div id="menu">
+		<h1>HTML5 Fishes</h1>
+		<h2>By Jamund Ferguson</h2>
+		<img id="logo" src="logo.png">
+		<nav>
+			<h1>Choose your character:</h1>
+			<a href="#">Shark</a>
+			<a href="#">Fish</a>
+		</nav>
+	</div>
 	<div id="controls">
 		<label id="score">Death Toll: 0</label>
 		<input id="restart" value="Restart" type="button"/>
@@ -19,5 +22,12 @@
 		<input title="left" class="joystick" value="&lt;" type="button"/>
 		<input title="right" class="joystick"  value="&gt;" type="button"/>
 	</div>
+	<script src="classes/Fish.js"></script>
+	<script src="classes/CollisionBoundary.js"></script>
+	<script src="classes/Sea.js"></script>
+	<script src="classes/Shark.js"></script>
+	<script src="classes/Smasher.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="fishes.js"></script>
 </body>
 </html>
