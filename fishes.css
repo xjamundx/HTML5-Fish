@@ -10,6 +10,9 @@ body {
 }
 
 .hidden {
+	-webkit-transition: all ease-in 1.75s;
+	-moz-transition: all ease-in 1.75s;
+	transition: all ease-in 1.75s;
 	margin-top: -800px;	
 }
 
@@ -52,9 +55,6 @@ a {
 	background: black;
 	display: block;
 	position: absolute;
-	-webkit-transition: all ease-in 2s;
-	-moz-transition: all ease-in 2s;
-	transition: all ease-in 2s;
 }
 
 #logo {
