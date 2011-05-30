@@ -65,6 +65,7 @@ a {
 	background: black;
 	display: block;
 	position: absolute;
+	z-index: 1;
 }
 
 #logo {

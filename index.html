@@ -1,18 +1,10 @@
 <html>
 <head>
 	<link href="fishes.css" rel="stylesheet" />
+	<title>HTML5 Fishes by Jamund Ferguson</title>
 </head>
 <body>
 	<div id="game">
-		<canvas id="canvas" width="800" height="600"></canvas>
-		<span id="score">Death Toll: 0</span>
-		<div id="controls">
-			<input id="restart" value="Restart" type="button"/>
-			<input title="up" class="joystick" value="^" type="button"/>
-			<input title="down" class="joystick" title="down" value="V" type="button"/>
-			<input title="left" class="joystick" value="&lt;" type="button"/>
-			<input title="right" class="joystick"  value="&gt;" type="button"/>
-		</div>
 		<div id="menu">
 			<h1>HTML5 Fishes</h1>
 			<h2>By Jamund Ferguson</h2>
@@ -22,6 +14,15 @@
 				<a href="#">Shark</a>
 				<a href="#">Fish</a>
 			</nav>
+		</div>
+		<canvas id="canvas" width="800" height="600"></canvas>
+		<span id="score">Death Toll: 0</span>
+		<div id="controls">
+			<input id="restart" value="Restart" type="button"/>
+			<input title="up" class="joystick" value="^" type="button"/>
+			<input title="down" class="joystick" title="down" value="V" type="button"/>
+			<input title="left" class="joystick" value="&lt;" type="button"/>
+			<input title="right" class="joystick"  value="&gt;" type="button"/>
 		</div>
 	</div>
 	<script src="classes/Fish.js"></script>
