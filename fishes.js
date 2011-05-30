@@ -30,10 +30,10 @@ var fishes = [];
 var intervalID = 0;
 var start_i = 1;
 
-function init() {
+function startGame() {
 	
 	// grab the canvas context
-	ctx = document.getElementById("game").getContext('2d');
+	ctx = document.getElementById("canvas").getContext('2d');
 
 	// stop the current timer
 	clearInterval(intervalID);
@@ -171,24 +171,6 @@ function moveFish(direction) {
 }
 
 $(function() {
-
-	init();			
-
-	$(document).keydown(function(e){
-		// left
-		if (e.keyCode == 37) { 
-			return moveFish("left");
-		// up
-		} else if (e.keyCode == 38) {
-			return moveFish("up");
-		// right
-		} else if (e.keyCode == 39) {
-			return moveFish("right");
-		// down
-		} else if (e.keyCode == 40) {
-			return moveFish("down");
-		} 
-	});
 			
 	$("#restart").click(function() {
 		window.location.reload();
@@ -200,6 +182,7 @@ $(function() {
 		
 	$("#menu a").click(function() {
 		$("#menu").addClass("hidden");
+		startGame();			
 	})
 });
 

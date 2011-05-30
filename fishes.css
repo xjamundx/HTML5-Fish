@@ -22,16 +22,24 @@ a {
 }
 
 #game {
+	margin: 25px auto;
+	position: relative;
+	height: 600px;
+	width: 800px;
+	overflow: hidden;
+}
+
+#canvas {
 	margin:0;
 	padding:0;
 	background: white;
 	-webkit-user-select: none;
-	z-index: 1;
 	position: absolute;
 }
 
 
 #controls {
+	display: none;
 	position: absolute;
 	top: 25px;
 	left: 66%;
@@ -45,11 +53,13 @@ a {
 }
 
 #score {
+	position: absolute;
+	top: 20px;
+	right: 20px;
 	color: navy;
 }
 
 #menu {
-	z-index: 2;
 	width: 800px;
 	height: 600px;
 	background: black;
