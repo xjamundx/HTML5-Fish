@@ -259,7 +259,7 @@
 			this.el.style.top = this.y;
 			*/
 			
-			var transform = "translate3d("+this.x+"px,"+this.y+"px,0) rotate("+this.rotate+"deg)";
+			var transform = "translate3d(" + this.x + "px," + this.y + "px, 0) rotate("+this.rotate+"deg)";
 			this.el.style.webkitTransform = transform;
 
 			
@@ -391,7 +391,7 @@
 			this.el.style.left = 0;
 			this.el.height=this.height;
 			this.el.style.webkitTransition = "0s";
-			this.el.style.webkitTransition = "-webkit-transform 1s ease-out";
+			// this.el.style.webkitTransition = "-webkit-transform 1s ease-out";
 			this.ctx = this.el.getContext("2d");
 			thesea.appendChild(this.el);
 					
@@ -406,8 +406,8 @@
 			// show movement
 			// this.el.style.left = this.x + "px";
 			// this.el.style.top = this.y + "px";
-			// var transform = "translate3d("+this.x+"px,"+this.y+"px,0) rotate("+this.rotate+"deg)";
-			// this.el.style.webkitTransform = transform;
+			var transform = "translate3d(" + this.x + "px," + this.y + "px, 0)";
+			this.el.style.webkitTransform = transform;
 		
 			if (!this.x || !this.y) return false;
 		
