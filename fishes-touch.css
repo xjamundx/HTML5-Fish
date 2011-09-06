@@ -55,7 +55,7 @@
 		canvas {
 			/* border: 2px solid pink; */
 			position: absolute;
-			-webkit-transition: -webkit-transform .2s ease-in;
+			/* -webkit-transition: -webkit-transform .2s ease-in; */
 			-webkit-user-select: ignore;
 		}
 		

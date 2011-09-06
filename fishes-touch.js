@@ -26,7 +26,7 @@
 		var dsharky = 1;
 		var	tail_dy = 2;
 		var odd = true;
-		var fps = 1000;
+		var fps = 20;
 		var fishes = [];
 		var intervalID = 0;
 		var start_i = 1;
@@ -69,7 +69,7 @@
 			fishes = [fish1,fish2,fish3,fish4,fish5,fish6];
 
 			// print and move them around
-			intervalID = setInterval('draw()', 1000 / fps);
+			intervalID = setInterval(draw, 1000 / fps);
 			
 			var date = new Date; // Generic JS date object
 			startTime = date.getTime(); // Returns milliseconds since the epoch
@@ -229,8 +229,7 @@
 			this.el = document.createElement("canvas");
 			this.el.height=50;
 			this.el.width=182;
-						this.el.style.webkitTransition = "0s";
-
+			this.el.style.webkitTransition = "0s";
 			this.ctx = this.el.getContext("2d");
 			thesea.appendChild(this.el);
 
@@ -252,30 +251,9 @@
 		}
 				
 		shark.prototype.draw = function() {
-			/*
-			this.rotate++;
-			if (this.rotate > 360) {this.rotate = 0;}
-			this.el.style.left = this.x;
-			this.el.style.top = this.y;
-			*/
-			
 			var transform = "translate3d(" + this.x + "px," + this.y + "px, 0) rotate("+this.rotate+"deg)";
 			this.el.style.webkitTransform = transform;
 
-			
-			// this.el.style.webkitTransform = "translate3D("+this.x+",0,0)";
-			
-			/*
-			this.el.style.webkitTransition = "-webkit-transform .1s ease-out";
-
-			if (this.rotate % 210 == 0) {
-				var translate = "translateY("+this.y+")";
-				// translate = " ";
-				rotate = "rotate("+this.rotate+"deg)"
-				var transform = translate + " " + rotate;
-				this.el.style.webkitTransform = transform;
-			}
-			*/
 	
 			// setup
 			this.ctx.clearRect(0,0,this.el.width,this.el.height);
@@ -386,31 +364,24 @@
 			this.rotate = 0;
 			this.dx = dx;
 			this.el = document.createElement("canvas");
-			this.el.width=this.width;
+			this.el.width = this.width;
 			this.el.style.top = 0;
 			this.el.style.left = 0;
-			this.el.height=this.height;
+			this.el.height = this.height;
 			this.el.style.webkitTransition = "0s";
 			// this.el.style.webkitTransition = "-webkit-transform 1s ease-out";
 			this.ctx = this.el.getContext("2d");
-			thesea.appendChild(this.el);
-					
+			this.drawOnce()
+			thesea.appendChild(this.el);					
 		}
 		fish.UP = 10;
 		fish.DOWN = 10;
 		fish.LEFT = 4;
 		fish.RIGHT = 4;
 		
-		fish.prototype.draw = function() {
 
-			// show movement
-			// this.el.style.left = this.x + "px";
-			// this.el.style.top = this.y + "px";
-			var transform = "translate3d(" + this.x + "px," + this.y + "px, 0)";
-			this.el.style.webkitTransform = transform;
-		
-			if (!this.x || !this.y) return false;
-		
+		fish.prototype.drawOnce = function() {
+
 			// setup
 			this.ctx.clearRect(0,0,this.width,this.height);
 			this.ctx.beginPath();
@@ -419,13 +390,13 @@
 	
 			// body
 			this.ctx.arc(25,25,this.radius,10,Math.PI,true);
-			this.ctx.fill();
 	
 			// fins
 			this.ctx.moveTo(25+this.radius/2,25);
-			this.ctx.lineTo(25+this.radius + this.tail_length,25 + this.tail_width);
-			this.ctx.lineTo(25+this.radius + this.tail_length,25 - this.tail_width);
+			this.ctx.lineTo(25+this.radius + this.tail_length, 25 + this.tail_width);
+			this.ctx.lineTo(25+this.radius + this.tail_length, 25 - this.tail_width);
 			this.ctx.fill();
+			this.ctx.closePath();
 			
 			// eyes
 			this.ctx.moveTo(25,25);
@@ -433,7 +404,20 @@
 			this.ctx.fillStyle = "black";
 			this.ctx.arc(25 - this.radius/2,25 - this.radius/4, this.radius/10,10,Math.PI,true);
 			this.ctx.fill();
-			
+			this.ctx.closePath();
+
+		}
+		fish.prototype.draw = function() {
+
+		
+			if (!this.x || !this.y) return false;
+		
+			// show movement
+			// this.el.style.left = this.x + "px";
+			// this.el.style.top = this.y + "px";
+			var transform = "translate3d(" + this.x + "px," + this.y + "px, 0)";
+			this.el.style.webkitTransform = transform;
+
 		}
 		
 		fish.prototype.everyTime = function() {
@@ -453,8 +437,6 @@
 		}
 		
 		fish.prototype.move = function() {
-
-			this.transition = "";
 
 			if (this.x > thesea.offsetWidth) {
 				this.dx = -dx;
@@ -544,11 +526,10 @@
 				return false;
 			});
 
-					
 			$("#stage").bind("touchmove", {}, function(e) {
-				e.preventDefault();
-				touch = window.event.targetTouches[ 0 ];
+				touch = window.event.targetTouches[0];
 				sharky.y =  touch.clientY;
+				if (window.event.targetTouches.length < 2) return false
 			});
 			
 
