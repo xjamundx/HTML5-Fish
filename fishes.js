@@ -1,3 +1,9 @@
+// constants
+var DOWN = 40;
+var RIGHT = 39;
+var UP = 38;
+var LEFT = 37;
+
 // declare some variables
 var ctx;
 var x;
@@ -138,6 +144,7 @@ function drawScreen() {
 		// fish.detectBoundaries().draw();
 	}
 
+  /*
 	if (sharky.y>=height-50) {
 		dsharky=-dsharky;
 	} else if (sharky.y-sharky.fin_height<=height/5) {
@@ -145,7 +152,7 @@ function drawScreen() {
 	}
 	
 	sharky.move(0,dsharky);
-	
+	*/
 }
 
 function moveFish(direction) {
@@ -172,16 +179,27 @@ function moveFish(direction) {
 
 $(function() {
 			
-	$("#restart").click(function() {
-		window.location.reload();
-	});
+	// $("#restart").click(function() {
+	//	window.location.reload();
+	// });
 	
-	$("input.joystick").click(function() {
-		moveFish($(this).attr("title"));
-	});
+	// $("input.joystick").click(function() {
+	//	moveFish($(this).attr("title"));
+	//});
 		
-	$("#menu a").click(function() {
-		$("#menu").addClass("hidden");
+	$(window).keydown(function(e) {
+    var x = 0, y = 0;
+    x = e.which === LEFT ? -1 : x;
+    x = e.which === RIGHT ? 1 : x;
+    y = e.which === UP ? -1 : y;
+    y = e.which === DOWN ? 1 : y;
+    sharky.move(x * 10, y * 10);
+    e.preventDefault();
+	})	
+		
+	$("#menu a").click(function(e) {
+    e.preventDefault();
+    $("#menu").addClass("hidden");
 		startGame();			
 	})
 });

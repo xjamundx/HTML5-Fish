@@ -28,18 +28,11 @@ Shark.prototype.draw = function() {
 
 	// setup
 	ctx.fillStyle = this.color;
-	ctx.save();
-	ctx.scale(this.length/this.height,this.height/this.height);
-	ctx.beginPath();
-	ctx.moveTo(this.x,this.y);
 
-	// body
-	ctx.arc(this.x,this.y,this.height,10,Math.PI,true);
-	ctx.fill();
-	ctx.restore();
-	ctx.beginPath();
+  this.drawBody();
 
 	// fins
+	ctx.beginPath();
 	ctx.moveTo(this.x, this.y);
 	ctx.fillRect(this.x,this.y,10,10);
 	ctx.lineTo(this.x, this.y + this.tail_width);
@@ -72,43 +65,7 @@ Shark.prototype.draw = function() {
 		ctx.fillStyle = "blue";		
 				
 	} else {
-	
-		ctx.beginPath();
-		ctx.fillStyle = "white";
-
-		// tooth 1
-		ctx.moveTo(this.x + this.length * 3, this.y);
-		ctx.lineTo(this.x  + this.length * 3, this.y  - 10);					
-		ctx.lineTo(this.x  + this.length * 3 - 5, this.y );
-		ctx.lineTo(this.x  + this.length * 3, this.y );
-		
-		// tooth 2
-		ctx.moveTo(this.x  + this.length * 3 - 05, this.y);										
-		ctx.lineTo(this.x  + this.length * 3 - 12, this.y);
-		ctx.lineTo(this.x  + this.length * 3 - 10, this.y - 5);					
-		ctx.lineTo(this.x  + this.length * 3 - 10, this.y - 10);
-		
-		// tooth 3
-		ctx.moveTo(this.x  + this.length * 3 - 10, this.y);										
-		ctx.lineTo(this.x  + this.length * 3 - 22, this.y);
-		ctx.lineTo(this.x  + this.length * 3 - 20, this.y - 5);					
-		ctx.lineTo(this.x  + this.length * 3 - 20, this.y - 10);
-		
-		// tooth 4
-		ctx.moveTo(this.x  + this.length * 3 - 20, this.y);										
-		ctx.lineTo(this.x  + this.length * 3 - 32, this.y);
-		ctx.lineTo(this.x  + this.length * 3 - 30, this.y - 5);					
-		ctx.lineTo(this.x  + this.length * 3 - 30, this.y - 10);
-		
-		// tooth 5
-		ctx.moveTo(this.x  + this.length * 3 - 30, this.y);										
-		ctx.lineTo(this.x  + this.length * 3 - 42, this.y);
-		ctx.lineTo(this.x  + this.length * 3 - 40, this.y - 5);					
-		ctx.lineTo(this.x  + this.length * 3 - 40, this.y - 10);
-		
-		// draw it all
-		ctx.stroke();
-		ctx.fill();
+    this.drawTeeth();	
 	}
 					
 	// eyes
@@ -119,8 +76,34 @@ Shark.prototype.draw = function() {
 	
 	//	ctx.arc(this.x + this.length/2,this.y - this.length/4, this.length/10,10,Math.PI,true);
 	ctx.fill();
+	ctx.closePath();
 }
 
+Shark.prototype.drawBody = function() {
+	ctx.save();
+	// ctx.scale(this.length/this.height,this.height/this.height);
+	ctx.beginPath();
+	ctx.moveTo(this.x,this.y);
+	ctx.arc(this.x,this.y,this.height,10,Math.PI,true);
+	// ctx.arc(this.x,this.y,this.width,10,Math.PI,true);
+	ctx.fill();
+	ctx.restore();
+}
+
+Shark.prototype.drawTeeth = function() {
+	ctx.beginPath();
+	ctx.fillStyle = "white";
+	for (var i = 5; i <= 40; i += 10) {
+		ctx.moveTo(this.x  + this.length * 3 - i, this.y);										
+		ctx.lineTo(this.x  + this.length * 3 - i + 12, this.y);
+		ctx.lineTo(this.x  + this.length * 3 - i + 10, this.y - 5);
+		ctx.lineTo(this.x  + this.length * 3 - i + 10, this.y - 10);
+	
+	}
+	ctx.stroke();
+	ctx.fill();
+	ctx.closePath();
+}	
 			
 Shark.prototype.wiggleTail = function(dx,dy) {
 	this.tail_length += dx;
