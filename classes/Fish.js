@@ -1,11 +1,28 @@
-function Fish(x, y, radius, color, tail_length, tail_width) {
-	
+function Fish(ctx, x, y, radius, color, tailLength, tailWidth) {
+  this.ctx = ctx;
 	this.radius = radius;
 	this.color = color;
 	this.x = x;
 	this.y = y;
-	this.tail_length = tail_length;
-	this.tail_width = tail_width;			
+	this.tailLength = tailLength;
+	this.tailWidth = tailWidth;			
+}
+
+Fish.createRandomFish = function(ctx, startX, startY) {
+  var x = startX + (Math.random() - .5) * 350;
+  var y = startY + (Math.random() - .5) * 350;
+  var r = 5 + Math.floor(Math.random() * 50);
+  var tl = Math.floor(25 + Math.random() * r);
+  var tw  = Math.floor(30 + Math.random() * r * .9);
+  return new Fish(ctx, x, y, r, Fish.generateRandomColor(), tl, tw);
+}
+
+Fish.generateRandomColor = function() {
+  function c() {
+    return Math.floor(Math.random() * 255);
+  }
+  var color = "rgb(" + c() + "," + c() + "," + c() + ")";
+  return color;
 }
 
 Fish.UP = 10;
@@ -16,42 +33,46 @@ Fish.RIGHT = 4;
 Fish.prototype.draw = function() {
 
 	// setup
-	ctx.beginPath();
-	ctx.moveTo(this.x,this.y);
-	ctx.fillStyle = this.color;
+	this.ctx.beginPath();
+	this.ctx.moveTo(this.x,this.y);
+	this.ctx.fillStyle = this.color;
 
 	// body
-	ctx.arc(this.x,this.y,this.radius,10,Math.PI,true);
+	this.ctx.arc(this.x,this.y,this.radius,10,Math.PI,true);
 
 	// fins
-	ctx.moveTo(this.x+this.radius/2,this.y);
-	ctx.lineTo(this.x+this.radius + this.tail_length,this.y + this.tail_width);
-	ctx.lineTo(this.x+this.radius + this.tail_length,this.y - this.tail_width);
-	ctx.fill();
+	this.ctx.moveTo(this.x+this.radius/2,this.y);
+	this.ctx.lineTo(this.x+this.radius + this.tailLength,this.y + this.tailWidth);
+	this.ctx.lineTo(this.x+this.radius + this.tailLength,this.y - this.tailWidth);
+	this.ctx.fill();
 	
 	// eyes
-	ctx.moveTo(this.x,this.y);
-	ctx.beginPath();
-	ctx.fillStyle = "black";
-	ctx.arc(this.x - this.radius/2,this.y - this.radius/4, this.radius/10,10,Math.PI,true);
-	ctx.fill();
+	this.ctx.moveTo(this.x,this.y);
+	this.ctx.beginPath();
+	this.ctx.fillStyle = "black";
+	this.ctx.arc(this.x - this.radius / 2, this.y - this.radius / 4, this.radius / 10, 10, Math.PI, true);
+	this.ctx.fill();
 	
 }
 				
 Fish.prototype.detectBoundaries = function() {
-	boundary_x = this.x - this.radius * 2;
-	boundary_y = this.y - this.radius;
-	boundary_width = this.tail_length + this.radius * 2;
-	boundary_height = this.radius * 2;
-	return new CollissionBoundary(boundary_x,boundary_y,boundary_width,boundary_height);
+	var boundaryX = this.x - this.radius * 2;
+	var boundaryY = this.y - this.radius;
+	var boundaryWidth = this.tailLength + this.radius * 2;
+	var boundaryHeight = this.radius * 2;
+	return new CollissionBoundary(boundaryX, boundaryY, boundaryWidth, boundaryHeight);
 }
 			
 Fish.prototype.wiggleTail = function(dx,dy) {
-	this.tail_length += dx;
-	this.tail_width += dy;
+	this.tailLength += dx;
+	this.tailWidth += dy;
 }
 
 Fish.prototype.move = function(x,y) {
 	this.x+=x;
 	this.y+=y;
+}
+
+Fish.prototype.kill = function() {
+  this.dead = true;
 }

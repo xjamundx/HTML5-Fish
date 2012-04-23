@@ -1,4 +1,5 @@
-function Sea(x, y, width, height, color, waves) {
+function Sea(ctx, x, y, width, height, color, waves) {
+  this.ctx = ctx;
 	this.x = x;
 	this.y = y;
 	this.width = width;
@@ -13,7 +14,7 @@ function Sea(x, y, width, height, color, waves) {
 
 Sea.prototype.everyTime = function() {
 	this.odd = !this.odd;
-};
+}
 
 Sea.prototype.draw = function () {
 	if (this.waves) {
@@ -23,16 +24,16 @@ Sea.prototype.draw = function () {
 		} else {			
 			start_i -= 4.3;
 		}
-		ctx.fillStyle = "blue";
-		ctx.strokeStyle = "blue";
+		this.ctx.fillStyle = "blue";
+		this.ctx.strokeStyle = "blue";
 		var wave_width = this.wave_width;
 		for (i=start_i-100;i<=width+100;i+=this.wave_width) {
-			ctx.beginPath();
-			ctx.moveTo(i, this.y+10);
-			ctx.bezierCurveTo(i, this.y+50, 100+i, this.y+50, i-50, this.y+50);
-			ctx.fill();
+			this.ctx.beginPath();
+			this.ctx.moveTo(i, this.y+10);
+			this.ctx.bezierCurveTo(i, this.y+50, 100+i, this.y+50, i-50, this.y+50);
+			this.ctx.fill();
 		}
 	}
-	ctx.fillStyle=this.color;
-	ctx.fillRect(this.x, this.sea_y - 20, this.width, this.height);
+	this.ctx.fillStyle=this.color;
+	this.ctx.fillRect(this.x, this.sea_y - 20, this.width, this.height);
 };

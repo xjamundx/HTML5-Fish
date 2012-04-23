@@ -1,19 +1,11 @@
 body {
 	background: white;
-	text-align: center;
 	margin:0;
 	padding:0;
 	background: white;
 	-webkit-user-select: none;
 	color: white;
 	font-family: "Arial";
-}
-
-.hidden {
-	-webkit-transition: all ease-in 1.75s;
-	-moz-transition: all ease-in 1.75s;
-	transition: all ease-in 1.75s;
-	margin-top: -800px;	
 }
 
 a {
@@ -29,7 +21,11 @@ a {
 	overflow: hidden;
 }
 
-#canvas {
+h1 {
+  text-align: center;
+}
+
+#play {
 	margin:0;
 	padding:0;
 	background: white;
@@ -37,7 +33,6 @@ a {
 }
 
 #controls {
-	display: none;
 	position: absolute;
 	top: 25px;
 	left: 66%;
@@ -50,6 +45,10 @@ a {
 	display: block;
 }
 
+.control {
+  z-index: 2;
+}
+
 #score {
 	position: absolute;
 	top: 20px;
@@ -58,12 +57,27 @@ a {
 }
 
 #menu {
+  text-align: center;  
+}
+
+.screen {
 	width: 800px;
 	height: 600px;
 	background: black;
-	display: block;
+	display: none;
 	position: absolute;
 	z-index: 1;
+}
+
+.screen:target {
+  display: block;
+}
+
+.isHidden {
+	-webkit-transition: all ease-in 1.75s;
+	-moz-transition: all ease-in 1.75s;
+	transition: all ease-in 1.75s;
+	margin-top: -800px;	
 }
 
 #logo {
