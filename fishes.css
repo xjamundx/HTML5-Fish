@@ -13,6 +13,12 @@ a {
 	text-decoration: none;
 }
 
+#fps {
+  position: absolute;
+  right: 0;
+  color: navy;
+}
+
 #game {
 	margin: 25px auto;
 	position: relative;
@@ -35,7 +41,8 @@ h1 {
 #controls {
 	position: absolute;
 	top: 25px;
-	left: 66%;
+	right: 0;
+  width: 200px;
 }
 
 #restart {
@@ -52,7 +59,7 @@ h1 {
 #score {
 	position: absolute;
 	top: 20px;
-	right: 20px;
+	right: 0px;
 	color: navy;
 }
 

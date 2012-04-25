@@ -22,8 +22,6 @@ var fish3;
 var fish4;
 var fish5;
 var fish6;
-var quarter_count=1;
-var eighth_count=1;
 var smasher;
 var i;
 var count;
@@ -40,12 +38,14 @@ var tail_dx = 2;
 var dsharky = 6;
 var	tail_dy = 2;
 var odd = true;
-var fps = 15;
+var fps = 100;
 var fishes = [];
 var sharky;
 var intervalID = 0;
-var start_i = 1;
+var intervalFPS = 0;
 var NUM_FISHES = 100;
+var $fps = $("#fps");
+var frames = 0;
 
 // game stuff
 var $canvas;
@@ -102,14 +102,17 @@ function stopEvents() {
 }
 
 function startGame() {
-
+  
+  console.log("starting game");
+  
   setupEvents();
   if (!paused) pauseGame();  
   
 	// re/set some variables
 	// grab the current height and width
-	height = $canvas.height();
-	width = $canvas.width();
+	var canvas = $canvas.get(0);
+	height = canvas.height;
+	width = canvas.width;
 	x =- 100;
 	y = 75;
 	dx = 29;
@@ -131,68 +134,72 @@ function startGame() {
 
 	// print and move them around
 	intervalID = setInterval(drawScreen, 1000 / fps);
+	intervalFPS = setInterval(updateFps, 1000);
   paused = false;
+}
+
+function updateFps() {
+  $fps.text(frames + " FPS ");  
+  frames = 0;
+}
+
+function calculateFps() {	
+  frames++;
+}
+
+function tick() {
+  thesea.tick();
+  sharky.tick();
 }
 
 
 function drawScreen() {
 	
-	quarter_count++;
-	eighth_count++;
-	if (eighth_count >= fps / 8) {
-		eighth_count=1;
-	}
-	if (quarter_count >=  fps / 4) {
-		thesea.everyTime();
-		quarter_count = 1;
-		sharky.everyTime();
-	} 
+  tick();
+	
+	calculateFps();
 	
 	// clear the screen
-	ctx.clearRect(0,0,width,height);
+	ctx.clearRect(0, 0, width, height);
 	
 	// move things along, albeit slowly
 	myx = dx/6;
 							
 	// draw the sea
-	thesea.draw();
+  thesea.draw();
 	
 	// draw the shark
 	sharky.draw();
 	// sharky.detectBoundaries().draw()
-	
+  
 	// get the timestamp
-	time  = new Date().getTime();
+	time = new Date().getTime();
 	
 	// move, wiggle, and draw the fish
 	// console.log(mydy + " " + time);
 	odd = !odd;
 	if (score >= fishes.length) {
-		clearInterval(intervalID);
-		$("#score").text("The End!");
-		return;
+		return endGame()
 	}
 	
 	for (i = 0; i < fishes.length; i++) {
-		
+    
     // get the next fish
 		fish = fishes[i];
 
     // ignore dead fish
     if (fish.dead) continue;
     
-		m = ( (1/(i+1))*18 );
+		m = ((1/(i+1))*18);
 		time = time * m;
 		mydy = Math.cos(time/(60*60));
-		if (fish.x < 0) {
-			fishes[i].move(width, 0);
-		}
+		if (fish.x < 0) fish.move(width, 0);
 		fish.move(-myx, mydy);
-		if (odd) {
-			fish.wiggleTail(tail_dx,tail_dy);
-		} else {
-			fish.wiggleTail(-tail_dx, -tail_dy);				
-		}
+		// if (odd) {
+		//	fish.wiggleTail(tail_dx,tail_dy);
+		// } else {
+		//	fish.wiggleTail(-tail_dx, -tail_dy);				
+		// }
 		
 		// collission detection
 		if (Smasher.detectCollision(fish.detectBoundaries(), sharky.detectBoundaries())) {
@@ -218,6 +225,12 @@ function drawScreen() {
 	
 	sharky.move(0,dsharky);
 	*/
+}
+
+function endGame() {
+	clearInterval(intervalFPS);
+	clearInterval(intervalID);
+	$("#score").text("The End!");
 }
 
 function stopGame() {

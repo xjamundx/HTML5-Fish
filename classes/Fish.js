@@ -38,10 +38,10 @@ Fish.prototype.draw = function() {
 	this.ctx.fillStyle = this.color;
 
 	// body
-	this.ctx.arc(this.x,this.y,this.radius,10,Math.PI,true);
+	this.ctx.arc(this.x, this.y, this.radius, 10, Math.PI, true);
 
 	// fins
-	this.ctx.moveTo(this.x+this.radius/2,this.y);
+	this.ctx.moveTo(this.x+this.radius/2, this.y);
 	this.ctx.lineTo(this.x+this.radius + this.tailLength,this.y + this.tailWidth);
 	this.ctx.lineTo(this.x+this.radius + this.tailLength,this.y - this.tailWidth);
 	this.ctx.fill();
@@ -52,7 +52,7 @@ Fish.prototype.draw = function() {
 	this.ctx.fillStyle = "black";
 	this.ctx.arc(this.x - this.radius / 2, this.y - this.radius / 4, this.radius / 10, 10, Math.PI, true);
 	this.ctx.fill();
-	
+  this.ctx.closePath();	
 }
 				
 Fish.prototype.detectBoundaries = function() {
@@ -63,14 +63,14 @@ Fish.prototype.detectBoundaries = function() {
 	return new CollissionBoundary(boundaryX, boundaryY, boundaryWidth, boundaryHeight);
 }
 			
-Fish.prototype.wiggleTail = function(dx,dy) {
+Fish.prototype.wiggleTail = function(dx, dy) {
 	this.tailLength += dx;
 	this.tailWidth += dy;
 }
 
-Fish.prototype.move = function(x,y) {
-	this.x+=x;
-	this.y+=y;
+Fish.prototype.move = function(x, y) {
+	this.x += x;
+	this.y += y;
 }
 
 Fish.prototype.kill = function() {

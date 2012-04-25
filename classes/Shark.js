@@ -10,10 +10,15 @@ function Shark(ctx, x, y, height, length, color, fin_width, fin_height, tail_len
 	this.tail_length = tail_length;
 	this.tail_width = tail_width;
 	this.mouth_open = false;
+	this.count = 0;
 }
 
-Shark.prototype.everyTime = function() {
-	this.mouth_open = !this.mouth_open;
+Shark.prototype.tick = function() {
+  this.count++;
+  if (this.count === 16) {
+  	this.mouth_open = !this.mouth_open;
+  	this.count = 0;
+  }
 }				
 	
 Shark.prototype.detectBoundaries = function() {
@@ -31,7 +36,6 @@ Shark.prototype.draw = function() {
 	this.ctx.fillStyle = this.color;
 
   this.drawBody();
-
   this.drawFins();
   this.drawMouth();
 
