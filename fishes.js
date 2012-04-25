@@ -62,6 +62,8 @@ var paused = false;
 function setupEvents() {
 
   	$canvas.mousemove(function(e) {
+  	  startX = startX || e.offsetX;
+  	  startY = startY || e.offsetY;
       sharky.x = e.clientX - startX;
       sharky.y = e.clientY - startY;
   	});
