@@ -21,21 +21,24 @@
 		
     <!-- high scores -->
     <div id="scores" class="screen">
-      <h1>Scores</h1>
-      <ol>
-        <li>asd</li>
-        <li>sd</li>
-        <li>asdf</li>
-        <li>asfs</li>
+      <a href="#menu" class="back">Back</a>
+      <h1>High Scores</h1>
+      <ol id="scoreList">
       </ol>
     </div>
     
     <!-- game -->
     <div id="play" class="screen">
   		<canvas id="canvas" width="800" height="600"></canvas>
+  		<div id="gameOver" class="isHidden">
+  		  <span id="name" contenteditable>Anonymous</span>
+				<a href="#replay">Re-Play</a>
+				<a href="#scores">High Scores</a>
+  		</div>
   		<div id="controls" class="control">
-    		<span id="score">Death Toll: 0</span>
-    		<span id="fps">0 FPS</span>
+    		<div id="score">Death Toll: 0 / 0</div>
+    		<div id="time">0s</div>
+    		<div id="fps">0 FPS</div>
         <!--
         <button id="pause">Pause (p)</button>
         <button id="stop">Stop (esc)</button>
@@ -48,6 +51,7 @@
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script src="classes/Fish.js"></script>
+	<script src="classes/ScoreBoard.js"></script>
 	<script src="classes/CollisionBoundary.js"></script>
 	<script src="classes/Sea.js"></script>
 	<script src="classes/Shark.js"></script>

@@ -3,7 +3,6 @@ body {
 	margin:0;
 	padding:0;
 	background: white;
-	-webkit-user-select: none;
 	color: white;
 	font-family: "Arial";
 }
@@ -11,12 +10,6 @@ body {
 a {
 	color: white;
 	text-decoration: none;
-}
-
-#fps {
-  position: absolute;
-  right: 0;
-  color: navy;
 }
 
 #game {
@@ -35,7 +28,9 @@ h1 {
 	margin:0;
 	padding:0;
 	background: white;
-	-webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 #controls {
@@ -54,13 +49,8 @@ h1 {
 
 .control {
   z-index: 2;
-}
-
-#score {
-	position: absolute;
-	top: 20px;
-	right: 0px;
-	color: navy;
+  color: navy;
+  text-align: right;
 }
 
 #menu {
@@ -80,11 +70,30 @@ h1 {
   display: block;
 }
 
+#scoreList {
+  text-align: center;
+  margin-top: 100px;
+}
+
+#gameOver {
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -125px;
+  top: 50%;
+  text-align: center;
+  width: 400px;
+  background: black;
+  height: 225px;
+  z-index: 2;
+  padding-top: 30px;
+	-webkit-transition: all ease-in .5s;
+	-moz-transition: all ease-in .5s;
+	transition: all ease-in .5s;
+}
+
 .isHidden {
-	-webkit-transition: all ease-in 1.75s;
-	-moz-transition: all ease-in 1.75s;
-	transition: all ease-in 1.75s;
-	margin-top: -800px;	
+	margin-top: -800px !important;
 }
 
 #logo {
@@ -99,7 +108,25 @@ h1 {
 	margin-top: 25px;
 }
 
-#menu nav a {
+[contenteditable] {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  user-modify: read-write;
+}
+
+li {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+a {
+  text-align: center;
 	background: rgb(255, 165, 0);
 	display: block;
 	font-size:  30px;
@@ -117,34 +144,16 @@ h1 {
 	margin: 25px auto;
 }
 
-
-#menu nav a:hover {
+a:hover {
 	-webkit-transform: rotate(0);
 	-moz-transform: rotate(0);
 	transform: rotate(0);
-
 }
 
-#menu nav a:focus,
-#menu nav a:active {
+a:focus,
+a:active {
 	color: rgb(66,66,66);
 	-webkit-box-shadow: 2px 2px 10px rgba(255, 255, 255, .7);
 	-moz-box-shadow: 2px 2px 10px rgba(255, 255, 255, .7);
 	box-shadow: 2px 2px 10px rgba(255, 255, 255, .7);
 }
-
-/*
-@media screen and (max-width: 480px) {
-
-  #game {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  #canvas {
-    width: 100%;
-    height: 100%;
-  }
-}
-*/
