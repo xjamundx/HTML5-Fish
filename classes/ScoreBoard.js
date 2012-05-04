@@ -31,17 +31,26 @@ ScoreBoard.prototype.save = function(score, name) {
   ScoreBoard.putScores(this.scores);
 };
 
-function Score(score, name) {
+ScoreBoard.tmpl = function(score) {
+    var html = '';
+    html += '<li>';
+    html += '<span class="date">' + score.date + '</span> | ';
+    html += '<span class="score">' + score.score + '</span> | ';
+    html += '<span class="name">' + score.name + '</span>';
+    html += '</li>';
+    return html;
+};
+
+function Score(score) {
   return {
     date: new Date().toDateString().slice(4),
     score: score,
-    name: name || "Anonymous"
+    name: ScoreBoard.store.name || "Anonymous"
   };
 }
 
-
-// {
-//   date: String
-//   score: Number,
-//   
-// }
+var $name = $("#name");
+$name.text(ScoreBoard.store.name);
+$("#name").keyup(function() {
+  ScoreBoard.store.name = $name.text();
+});

@@ -28,9 +28,6 @@ h1 {
 	margin:0;
 	padding:0;
 	background: white;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 #controls {
@@ -106,12 +103,6 @@ h1 {
 
 #menu nav  {
 	margin-top: 25px;
-}
-
-[contenteditable] {
-  -moz-user-modify: read-write;
-  -webkit-user-modify: read-write;
-  user-modify: read-write;
 }
 
 li {

@@ -5,19 +5,20 @@
 	<title>HTML5 Fishes by Jamund Ferguson</title>
 </head>
 <body>
-	<div id="game">
-		
-		<!-- menu -->
-		<div id="menu" class="screen">
-			<h1>HTML5 Fishes</h1>
-			<h2>By Jamund Ferguson</h2>
-			<img id="logo" src="logo.png">
-			<nav>
-				<h1>Choose your adventure:</h1>
-				<a href="#play">Play</a>
-				<a href="#scores">High Scores</a>
-			</nav>
-		</div>
+
+  <div id="game">
+  		
+  	<!-- menu -->
+  	<div id="menu" class="screen">
+  		<h1>HTML5 Fishes</h1>
+  		<h2>By Jamund Ferguson</h2>
+  		<img id="logo" src="logo.png">
+  		<nav>
+  			<h1>Choose your adventure:</h1>
+  			<a href="#play">Play</a>
+  			<a href="#scores">High Scores</a>
+  		</nav>
+  	</div>
 		
     <!-- high scores -->
     <div id="scores" class="screen">
@@ -31,22 +32,18 @@
     <div id="play" class="screen">
   		<canvas id="canvas" width="800" height="600"></canvas>
   		<div id="gameOver" class="isHidden">
-  		  <span id="name" contenteditable>Anonymous</span>
-				<a href="#replay">Re-Play</a>
-				<a href="#scores">High Scores</a>
+            <span id="name" contenteditable>Anonymous</span>
+    		<a href="#replay">Re-Play</a>
+    		<a href="#scores">High Scores</a>
   		</div>
   		<div id="controls" class="control">
     		<div id="score">Death Toll: 0 / 0</div>
     		<div id="time">0s</div>
     		<div id="fps">0 FPS</div>
-        <!--
-        <button id="pause">Pause (p)</button>
-        <button id="stop">Stop (esc)</button>
-        -->
   		</div>
     </div>
-    
-	</div>
+
+  </div>
 	
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -57,5 +54,7 @@
 	<script src="classes/Shark.js"></script>
 	<script src="classes/Smasher.js"></script>
 	<script src="fishes.js"></script>
+
 </body>
 </html>
+

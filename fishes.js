@@ -23,7 +23,6 @@ var canvas = $canvas.get(0);
 var ctx = canvas.getContext('2d');
 var	height = canvas.height;
 var	width = canvas.width;
-var name = "";
 var actors = [];
 var fishes = [];
 var smasher;
@@ -33,19 +32,15 @@ var intervalFPS = 0;
 var ticks = 0;
 var lastHash = "";
 var time;
+var store = window.localStorage || {};
 
 function scoreBoard() {
   var sb = new ScoreBoard();
   var scores = sb.top10();
+  $scoreList.empty();
   var html = "";
   for (var i = 0; i < scores.length; i++) {
-    html += '<li>';
-    html += '<span class="date">' + scores[i].date + '</span>';
-    html += ' | ';
-    html += '<span class="score">' + scores[i].score + '</span>';
-    html += ' | ';
-    html += '<span class="name">' + scores[i].name + '</span>';
-    html += '</li>';
+    html += ScoreBoard.tmpl(scores[i]);
   }
   $scoreList.append(html);
 }
@@ -55,35 +50,20 @@ function setupEvents() {
   var pos = $canvas.offset();
   var startX = pos.left;
   var startY = pos.top;
-
-  $canvas.mousemove(function(e) {
+  
+  $canvas.bind("touchmove", function(e) {
+    var touch = e.originalEvent.targetTouches[0];
+    sharky.x = touch.clientX;
+    sharky.y = touch.clientY;
+  });
+  
+  $canvas.bind("mousemove", function(e) {
     startX = startX || e.offsetX;
     startY = startY || e.offsetY;
     sharky.x = e.clientX - startX;
     sharky.y = e.clientY - startY;
   });
 
-  $(window).keydown(function(e) {
-    var x = 0;
-    var y = 0;
-    if (e.which === STOP) stopGame();
-    if (e.which === PAUSE) handlePause();
-    x = e.which === LEFT ? -1 : x;
-    x = e.which === RIGHT ? 1 : x;
-    y = e.which === UP ? -1 : y;
-    y = e.which === DOWN ? 1 : y;
-    sharky.move(x * 10, y * 10);
-    e.preventDefault();
-	});	
-}
-
-function stopGame() {
- window.location.reload();
-}
-
-function stopEvents() {
-  $(window).unbind("keydown");
-  $canvas.unbind("mousemove");
 }
 
 function reset() {
@@ -106,14 +86,12 @@ function startGame() {
   console.log("starting game");
   $gameOver.addClass("isHidden");
   reset();
-  setupEvents();
   
 	var fishStartY = height / 2;
 	var fishStartX = width;
 	
 	// create a sea
 	var thesea = new Sea(ctx, 0, 100, width, height, "blue", true);
-	fishes = []
 	sharky = new Shark(ctx, 50, 250, 20, 100, "gray", 15, 25, 25, 25);
   actors = [sharky, thesea];
 
@@ -177,7 +155,6 @@ function updateFishes() {
 			score++;
 			$score.text(NUM_FISHES - score + " left!");
       fishes[i].kill();
-			continue;
 		}
 		
   }	
@@ -187,19 +164,15 @@ function updateFishes() {
 function endGame() {
   $gameOver.removeClass("isHidden");
   var sb = new ScoreBoard();
-	clearInterval(intervalFPS);
-	clearInterval(intervalID);
+  clearInterval(intervalFPS);
+  clearInterval(intervalID);
   sb.save(time(), name);
-	$score.text("The End!");
+  $score.text("The End!");
 }
 
 function replay() {
   $gameOver.addClass("isHidden");
   location.hash = "play";
-}
-
-function stopGame() {
-  stopEvents();
 }
 
 function start() {
@@ -214,7 +187,6 @@ function start() {
   if (menuItems[hash]) menuItems[hash]();
 }
 
-$(document).ready(function() {
-  if (!location.hash) location.hash = "#menu";
-  $(window).bind("hashchange", start).trigger("hashchange");
-});
+setupEvents();
+if (!location.hash) location.hash = "#menu";
+$(window).bind("hashchange", start).trigger("hashchange");

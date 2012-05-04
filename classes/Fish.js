@@ -1,16 +1,16 @@
 function Fish(ctx, x, y, radius, color, tailLength, tailWidth) {
   this.ctx = ctx;
-	this.radius = radius;
-	this.color = color;
-	this.x = x;
-	this.y = y;
+  this.radius = radius;
+  this.color = color;
+  this.x = x;
+  this.y = y;
   // this is pixels per tick
   // should actually set
   // pixels per second
-  this.velY = 5;
-	this.velX = 10; 
-	this.tailLength = tailLength;
-	this.tailWidth = tailWidth;			
+  this.velY = 15;
+  this.velX = 15; 
+  this.tailLength = tailLength;
+  this.tailWidth = tailWidth;			
   this.ticks = 0;
   this.direction = 1;
 }
@@ -92,8 +92,8 @@ Fish.prototype.wiggleTail = function() {
 }
 
 Fish.prototype.move = function() {
-	this.x -= this.velX;
-	this.y += Math.cos(this.ticks * .5) * this.velY;
+	this.x -= this.velX * Math.random() + this.velX / 2;
+	this.y += Math.cos(this.ticks * .5) * this.velY * Math.random();
 }
 
 Fish.prototype.kill = function() {
