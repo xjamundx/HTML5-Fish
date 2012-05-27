@@ -57,11 +57,18 @@ function setupEvents() {
     sharky.y = touch.clientY;
   });
   
-  $canvas.bind("mousemove", function(e) {
-    startX = startX || e.offsetX;
-    startY = startY || e.offsetY;
-    sharky.x = e.clientX - startX;
-    sharky.y = e.clientY - startY;
+  $canvas.bind("mousemove", function(evt) {
+    var x, y;
+    var e = evt.originalEvent;
+    if (e.offsetX) {
+        x = e.offsetX;
+        y = e.offsetY;
+    } else if (e.layerX) {
+        x = e.layerX;
+        y = e.layerY;
+    }
+    sharky.x = x;
+    sharky.y = y;
   });
 
 }

@@ -116,6 +116,10 @@ li {
   right: 0;
 }
 
+canvas {
+  position: relative;
+}
+
 a {
   text-align: center;
 	background: rgb(255, 165, 0);
