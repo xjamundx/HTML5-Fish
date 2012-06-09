@@ -23,16 +23,16 @@ var canvas = $canvas.get(0);
 var ctx = canvas.getContext('2d');
 var	height = canvas.height;
 var	width = canvas.width;
+var lastTime = Date.now();
 var actors = [];
 var fishes = [];
 var smasher;
 var score = 0;
-var intervalID = 0;
-var intervalFPS = 0;
 var ticks = 0;
 var lastHash = "";
 var time;
 var store = window.localStorage || {};
+var paused = false;
 
 function scoreBoard() {
   var sb = new ScoreBoard();
@@ -90,7 +90,6 @@ function resetTime() {
 
 function startGame() {
   
-  console.log("starting game");
   $gameOver.addClass("isHidden");
   reset();
   
@@ -109,17 +108,19 @@ function startGame() {
 	actors = actors.concat(fishes);
 	
 	// print and move them around
-	intervalID = setInterval(drawScreen, 1000 / FPS);
-	intervalFPS = setInterval(updateFps, 1000);
-}
-
-function updateFps() {
-  $fps.text(ticks + " FPS ");  
-  ticks = 0;
+	drawScreen();
 }
 
 function calculateFps() {	
+  var diff = Date.now() - lastTime;
+  var fps = 0;
   ticks++;
+  if (diff > 1000) {
+    fps = Math.round(ticks / diff * 1000);
+    $fps.text(fps + " FPS ");
+    lastTime = Date.now();
+    ticks = 0;
+  }
 }
 
 function gameOver() {
@@ -138,6 +139,7 @@ function clearScreen() {
 }
 
 function drawScreen() {
+  if (paused) return;
 	calculateFps();
   clearScreen();
   drawAll();
@@ -146,40 +148,38 @@ function drawScreen() {
   }
   $time.text(time() + "ms");
   updateFishes();
+  requestAnimationFrame(drawScreen);
 }
 
 function updateFishes() {
-
 	for (var i = 0; i < fishes.length; i++) {
     if (fishes[i].dead) continue;    
     fishes[i].tick();
     if (fishes[i].x < 0) {
       fishes[i].x = width;
     }
-
 		// collission detection
 		if (Smasher.detectCollision(fishes[i].detectBoundaries(), sharky.detectBoundaries())) {
 			score++;
 			$score.text(NUM_FISHES - score + " left!");
       fishes[i].kill();
 		}
-		
   }	
-
 }
 
 function endGame() {
   $gameOver.removeClass("isHidden");
   var sb = new ScoreBoard();
-  clearInterval(intervalFPS);
-  clearInterval(intervalID);
+  paused = true;
   sb.save(time(), name);
+  $fps.text("0 FPS");
   $score.text("The End!");
 }
 
 function replay() {
   $gameOver.addClass("isHidden");
   location.hash = "play";
+  paused = false;
 }
 
 function start() {
@@ -193,6 +193,33 @@ function start() {
   if (lastHash === "#play") startGame();
   if (menuItems[hash]) menuItems[hash]();
 }
+
+// requestAnimationFrame polyfill
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = 
+          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+ 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
 
 setupEvents();
 if (!location.hash) location.hash = "#menu";
