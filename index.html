@@ -1,35 +1,61 @@
-<html>
+<html lang="en">
 <head>
-	
-	<!--
-		BY JAMUND FERGUSON
-		May 20, 2010
-		MIT and GPL Licensed (?)
-	-->
-	
-
-	<!-- iPhone Stuff -->
-	<link rel="apple-touch-icon" href="icon.png" />
-	<link rel="apple-touch-startup-image" href="Default.png" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="viewport" content="width=480, initial-scale =1, user-scalable=yes" />
-
-	<!-- StyleSheet -->
-	<link rel="stylesheet" type="text/css" href="fishes-touch.css" />	
-	
-	<!-- Javascript -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="fishes-touch.js"></script>
-	
+	<link href="fishes.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=800, initial-scale=1, user-scalable=yes" />
+	<title>HTML5 Fishes by Jamund Ferguson</title>
 </head>
 <body>
 
- <div id="stage">
-	 <label id="score">Death Toll: 0</label>
-	 <label id="fps">FPS: 0</label>
- </div>
- <button id="restart">Restart</button>
+  <div id="game">
+  		
+  	<!-- menu -->
+  	<div id="menu" class="screen">
+  		<h1>HTML5 Fishes</h1>
+  		<h2>By Jamund Ferguson</h2>
+  		<img id="logo" src="logo.png">
+  		<nav>
+  			<h1>Choose your adventure:</h1>
+  			<a href="#play">Play</a>
+  			<a href="#scores">High Scores</a>
+  		</nav>
+  	</div>
+		
+    <!-- high scores -->
+    <div id="scores" class="screen">
+      <a href="#menu" class="back">Back</a>
+      <h1>High Scores</h1>
+      <ol id="scoreList">
+      </ol>
+    </div>
+    
+    <!-- game -->
+    <div id="play" class="screen">
+  		<canvas id="canvas" width="800" height="600"></canvas>
+  		<div id="gameOver" class="isHidden">
+            <span id="name" contenteditable>Anonymous</span>
+    		<a href="#replay">Re-Play</a>
+    		<a href="#scores">High Scores</a>
+  		</div>
+  		<div id="controls" class="control">
+    		<div id="score">Death Toll: 0 / 0</div>
+    		<div id="time">0s</div>
+    		<div id="fps">0 FPS</div>
+  		</div>
+    </div>
+
+  </div>
+	
+	<!-- scripts -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="classes/Fish.js"></script>
+	<script src="classes/ScoreBoard.js"></script>
+	<script src="classes/CollisionBoundary.js"></script>
+	<script src="classes/Sea.js"></script>
+	<script src="classes/Shark.js"></script>
+	<script src="classes/Smasher.js"></script>
+	<script src="fishes.js"></script>
 
 </body>
 </html>
+
