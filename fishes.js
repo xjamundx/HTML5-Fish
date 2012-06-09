@@ -11,21 +11,22 @@ var FPS = 100;
 // variables
 var $fps = $("#fps");
 var $time = $("#time");
-var $canvas = $("#canvas");
+var $canvas = $("#play");
 var $menu = $("#menu");
 var $name = $("#name");
 var $score = $("#score");
+var shark = $("#shark").get(0);
+var sea = $("#thesea").get(0);
 var $gameOver = $("#gameOver");
 var $links = $menu.find("a");
 var $body = $("body");
 var $scoreList = $("#scoreList");
-var canvas = $canvas.get(0);
-var ctx = canvas.getContext('2d');
-var	height = canvas.height;
-var	width = canvas.width;
+var	height = $canvas.height();
+var	width = $canvas.width();
 var lastTime = Date.now();
 var actors = [];
 var fishes = [];
+var sharky;
 var smasher;
 var score = 0;
 var ticks = 0;
@@ -94,17 +95,25 @@ function startGame() {
   $gameOver.addClass("isHidden");
   reset();
   
+  var c;
+  var fish = null;
 	var fishStartY = height / 2;
-	var fishStartX = width;
+	var fishStartX = width / 2;
 	
 	// create a sea
-	var thesea = new Sea(ctx, 0, 100, width, height, "blue", true);
-	sharky = new Shark(ctx, 50, 250, 20, 100, "gray", 15, 25, 25, 25);
-  actors = [sharky, thesea];
+	var thesea = new Sea(sea.getContext("2d"), 0, 100, width, height, "blue", true);
+	thesea.draw();
+	sharky = new Shark(shark.getContext("2d"), 0, 50, 20, 100, "gray", 15, 25, 25, 25);
+	sharky.el = shark;
+	sharky.draw(true);
+  actors = [sharky];
+  thesea.dead = true; // only draw once
 
   // create a bunch of fishes
 	for (var i = 0; i < NUM_FISHES; i++) {
-    fishes.push(new Fish.createRandomFish(ctx, fishStartX + i * 13, fishStartY));
+  	fish = new Fish.createRandomCanvasFish(fishStartX + i * 13, fishStartY);
+  	$canvas.prepend(fish.el);
+    fishes.push(fish);
 	}
 	actors = actors.concat(fishes);
 	
@@ -129,26 +138,21 @@ function gameOver() {
 }
 
 function drawAll() {
-  for (var i = actors.length - 1; i > -1 ; i--) {
+  for (var i = 0; i < actors.length; i++) {
     if (actors[i].dead) continue;
     actors[i].draw();
   }
 }
 
-function clearScreen() {
-	ctx.clearRect(0, 0, width, height);
-}
-
 function drawScreen() {
   if (paused) return;
 	calculateFps();
-  clearScreen();
+  updateFishes();
   drawAll();
 	if (gameOver()) {
     return endGame();
   }
   $time.text(time() + "ms");
-  updateFishes();
   requestAnimationFrame(drawScreen);
 }
 
@@ -159,12 +163,14 @@ function updateFishes() {
     if (fishes[i].x < 0) {
       fishes[i].x = width;
     }
+
 		// collission detection
 		if (Smasher.detectCollision(fishes[i].detectBoundaries(), sharky.detectBoundaries())) {
-			score++;
-			$score.text(NUM_FISHES - score + " left!");
-      fishes[i].kill();
+			 score++;
+			 $score.text(NUM_FISHES - score + " left!");
+			 fishes[i].kill();
 		}
+
   }	
 }
 

@@ -11,6 +11,7 @@ function Shark(ctx, x, y, height, length, color, fin_width, fin_height, tail_len
 	this.tail_width = tail_width;
 	this.mouth_open = false;
 	this.count = 0;
+	this.el = null;
 }
 
 Shark.prototype.tick = function() {
@@ -29,8 +30,16 @@ Shark.prototype.detectBoundaries = function() {
 	var boundary =  new CollissionBoundary(boundaryX, boundaryY, boundaryWidth, boundaryHeight);
 	return boundary;
 }
+
+Shark.prototype.drawEl = function() {
+  var translate = "translate3d(" + this.x + "px," + this.y + "px, 0)";
+  var style = this.el.style;
+  style.WebkitTransform = style.MozTransform = style.transform = translate;
+}
 			
-Shark.prototype.draw = function() {
+Shark.prototype.draw = function(force) {
+
+  if (!force && this.el) return this.drawEl();
 
 	// setup
 	this.ctx.fillStyle = this.color;

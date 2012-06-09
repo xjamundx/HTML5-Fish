@@ -9,10 +9,33 @@ function Fish(ctx, x, y, radius, color, tailLength, tailWidth) {
   // pixels per second
   this.velY = 15;
   this.velX = 15; 
-  this.tailLength = tailLength;
-  this.tailWidth = tailWidth;			
+  this.tailLength = Math.round(tailLength);
+  this.tailWidth = Math.round(tailWidth);
   this.ticks = 0;
   this.direction = 1;
+  this.el = null; // optional
+}
+
+Fish.createRandomCanvasFish = function(startX, startY) {
+  var c = document.createElement('canvas');
+  var ctx = c.getContext("2d");
+  var fish = Fish.createRandomFish(ctx, startX, startY);
+  c.width = fish.radius * 2 + fish.tailLength;
+  c.height = fish.radius * 2 + fish.tailWidth;
+  fish.el = c;
+  var oldX = fish.x;
+  var oldY = fish.y
+  
+  // weird stuff to correct drawing location on smaller canvas
+  fish.x = c.width / 2;
+  fish.y = c.height / 2;
+  fish.el.className = "fish";
+  fish.draw(true);
+  
+  // restore position
+  fish.x = oldX;
+  fish.y = oldY;
+  return fish;
 }
 
 Fish.createRandomFish = function(ctx, startX, startY) {
@@ -45,7 +68,15 @@ Fish.prototype.tick = function() {
   this.draw();
 }
 
-Fish.prototype.draw = function() {
+Fish.prototype.drawEl = function() {
+  var translate = "translate3d(" + this.x + "px," + this.y + "px, 0)";
+  var style = this.el.style;
+  style.WebkitTransform = style.MozTransform = style.transform = translate;
+}
+
+Fish.prototype.draw = function(force) {
+
+  if (!force && this.el) return this.drawEl();
 
 	// setup
 	this.ctx.beginPath();
@@ -97,5 +128,8 @@ Fish.prototype.move = function() {
 }
 
 Fish.prototype.kill = function() {
+  this.el.className += " dead";
+  this.y = -200;
+  this.draw();
   this.dead = true;
 }
