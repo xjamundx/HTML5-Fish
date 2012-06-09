@@ -52,6 +52,7 @@ function setupEvents() {
   var startY = pos.top;
   
   $canvas.bind("touchmove", function(e) {
+    e.preventDefault();
     var touch = e.originalEvent.targetTouches[0];
     sharky.x = touch.clientX;
     sharky.y = touch.clientY;
