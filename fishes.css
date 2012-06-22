@@ -1,3 +1,8 @@
+html {
+	margin: 0;
+	padding :0;
+}
+
 body {
 	background: white;
 	margin:0;
@@ -175,7 +180,10 @@ canvas {
 }
 
 .dead {
+	display: none;
+	/*
   -webkit-transition: all 1.75s ease-in;
   -moz-transition: all 1.75s ease-in;
   transition: all 1.75s ease-in;
+  */
 }
